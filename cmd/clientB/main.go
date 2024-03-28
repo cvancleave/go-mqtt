@@ -30,19 +30,18 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// setup payload
-	payload, err := json.Marshal("hi mom")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	log.Infof("publishing payload")
-
-	// publish
+	// publish with below payload
 	if err := c.Publish(topic, payload); err != nil {
 		log.Fatal(err)
 	}
 
+	log.Infof("published payload")
+
 	for range make(chan string) {
 	}
+}
+
+func payload() []byte {
+	payload, _ := json.Marshal("hi mom")
+	return payload
 }

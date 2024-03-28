@@ -30,23 +30,22 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// setup subscription handler
-	handler := func(c mqtt.Client, m mqtt.Message) {
-		var data string
-		if err := json.Unmarshal(m.Payload(), &data); err != nil {
-			log.Errorf("failed to unmarshal payload: %s", err.Error())
-			return
-		}
-		log.Infof("message received from %s: %s", m.Topic(), data)
-	}
-
-	// subscribe
+	// subscribe with below handler
 	if err := c.Subscribe(topic, handler); err != nil {
 		log.Fatal(err)
 	}
 
-	log.Infof("subscribed to %s", topic)
+	log.Infof("subscribed to topic: %s", topic)
 
 	for range make(chan string) {
 	}
+}
+
+func handler(c mqtt.Client, m mqtt.Message) {
+	var data string
+	if err := json.Unmarshal(m.Payload(), &data); err != nil {
+		log.Errorf("failed to unmarshal payload: %s", err.Error())
+		return
+	}
+	log.Infof("message received from %s: %s", m.Topic(), data)
 }
