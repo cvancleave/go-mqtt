@@ -1,4 +1,4 @@
-# go mqtt
+# go-mqtt
 
 Contains a simple client for connecting, subscribing, and publishing via mqtt.
 
