@@ -42,10 +42,10 @@ func main() {
 }
 
 func handler(c mqtt.Client, m mqtt.Message) {
-	var data string
+	var data map[string]any
 	if err := json.Unmarshal(m.Payload(), &data); err != nil {
 		log.Errorf("failed to unmarshal payload: %s", err.Error())
 		return
 	}
-	log.Infof("message received from %s: %s", m.Topic(), data)
+	log.Infof("message received from %s: %v", m.Topic(), data["text"])
 }

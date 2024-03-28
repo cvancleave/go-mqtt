@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 
@@ -31,17 +32,18 @@ func main() {
 	}
 
 	// publish with below payload
-	if err := c.Publish(topic, payload); err != nil {
+	if err := c.Publish(topic, payload()); err != nil {
 		log.Fatal(err)
 	}
 
 	log.Infof("published payload")
-
-	for range make(chan string) {
-	}
 }
 
 func payload() []byte {
-	payload, _ := json.Marshal("hi mom")
+	data := map[string]any{
+		"time": time.Now().Unix(),
+		"text": "hi mom",
+	}
+	payload, _ := json.Marshal(data)
 	return payload
 }
