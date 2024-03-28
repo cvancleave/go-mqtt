@@ -18,10 +18,22 @@ type Client struct {
 
 type option func(*Client) error
 
-func WithInfo(brokerUrl, clientId, username, password string) option {
+func WithBrokerUrl(brokerUrl string) option {
 	return func(c *Client) error {
 		c.brokerUrl = brokerUrl
+		return nil
+	}
+}
+
+func WithClientId(clientId string) option {
+	return func(c *Client) error {
 		c.clientId = clientId
+		return nil
+	}
+}
+
+func WithUserInfo(username, password string) option {
+	return func(c *Client) error {
 		c.username = username
 		c.password = password
 		return nil

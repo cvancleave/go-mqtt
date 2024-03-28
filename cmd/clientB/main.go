@@ -11,15 +11,15 @@ import (
 
 func main() {
 
-	// set info
+	// set variables
 	topic := "my/custom/topic"
-	brokerUrl := "tcp://localhost:1883"
-	clientId := "clientB"
-	username := ""
-	password := ""
+
+	// create client options
+	optA := client.WithBrokerUrl("tcp://localhost:1883")
+	optB := client.WithClientId("clientB")
 
 	// create client
-	c, err := client.NewClient(client.WithInfo(brokerUrl, clientId, username, password))
+	c, err := client.NewClient(optA, optB)
 	if err != nil {
 		log.Fatal(err)
 	}
