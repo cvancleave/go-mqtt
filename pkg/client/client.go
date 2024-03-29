@@ -71,7 +71,7 @@ func (c *Client) Connect() error {
 }
 
 func (c *Client) Disconnect() {
-	c.client.Disconnect(2)
+	c.client.Disconnect(250)
 }
 
 func (c *Client) Subscribe(topic string, handler mqtt.MessageHandler) error {
