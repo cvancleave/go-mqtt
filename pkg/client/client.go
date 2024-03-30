@@ -8,7 +8,9 @@ import (
 )
 
 type Client struct {
-	Options   *mqtt.ClientOptions
+	Options *mqtt.ClientOptions
+
+	provider  mqtt.CredentialsProvider
 	client    mqtt.Client
 	brokerUrl string
 	clientId  string
@@ -36,6 +38,13 @@ func WithUserInfo(username, password string) option {
 	return func(c *Client) error {
 		c.username = username
 		c.password = password
+		return nil
+	}
+}
+
+func WithProvider(provider mqtt.CredentialsProvider) option {
+	return func(c *Client) error {
+		c.provider = provider
 		return nil
 	}
 }
