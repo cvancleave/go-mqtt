@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	log "github.com/sirupsen/logrus"
 )
 
 type Client struct {
@@ -105,9 +104,9 @@ func (c *Client) Publish(topic string, payload any) error {
 }
 
 func defaultConnectHandler(client mqtt.Client) {
-	log.Info("connected to mqtt")
+	fmt.Println("connected to mqtt")
 }
 
 func defaultConnectLostHandler(client mqtt.Client, err error) {
-	log.Infof("connection lost: %v", err)
+	fmt.Println("connection lost: %v", err)
 }

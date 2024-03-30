@@ -2,9 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
-
-	log "github.com/sirupsen/logrus"
 
 	"github.com/cvancleave/go-mqtt/pkg/client"
 )
@@ -21,22 +20,22 @@ func main() {
 	// create client
 	c, err := client.NewClient(optA, optB)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	// optionally set other client options here to override defaults
 
 	// connect
 	if err := c.Connect(); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	// publish with below payload
 	if err := c.Publish(topic, payload()); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
-	log.Infof("published payload")
+	fmt.Println("published payload")
 }
 
 func payload() []byte {

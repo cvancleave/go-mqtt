@@ -2,10 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/cvancleave/go-mqtt/pkg/client"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	log "github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -20,22 +20,22 @@ func main() {
 	// create client
 	c, err := client.NewClient(optA, optB)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	// optionally set other client options here to override defaults
 
 	// connect
 	if err := c.Connect(); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	// subscribe with below handler
 	if err := c.Subscribe(topic, handler); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
-	log.Infof("subscribed to topic: %s", topic)
+	fmt.Printf("subscribed to topic: %s\n", topic)
 
 	for range make(chan string) {
 	}
@@ -44,8 +44,7 @@ func main() {
 func handler(c mqtt.Client, m mqtt.Message) {
 	var data map[string]any
 	if err := json.Unmarshal(m.Payload(), &data); err != nil {
-		log.Errorf("failed to unmarshal payload: %s", err.Error())
-		return
+		panic(err)
 	}
-	log.Infof("message received from %s: %v", m.Topic(), data["text"])
+	fmt.Printf("message received from %s: %v\n", m.Topic(), data["text"])
 }
