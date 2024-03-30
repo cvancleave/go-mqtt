@@ -108,5 +108,5 @@ func defaultConnectHandler(client mqtt.Client) {
 }
 
 func defaultConnectLostHandler(client mqtt.Client, err error) {
-	fmt.Println("connection lost: %v", err)
+	fmt.Printf("connection lost: %v\n", err)
 }
